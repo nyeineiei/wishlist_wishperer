@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wishlist_wishperer/features/auth/presentation/view/login_screen.dart';
+import 'package:wishlist_wishperer/features/product/domain/model/product.dart';
 import 'package:wishlist_wishperer/features/product/presentation/view/add_product_screen.dart';
 import 'package:wishlist_wishperer/features/product/presentation/view_model/product_view_model.dart';
 

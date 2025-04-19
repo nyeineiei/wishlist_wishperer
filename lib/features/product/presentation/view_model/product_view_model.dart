@@ -1,49 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-class Product {
-  final String url;
-  final double price;
-  final bool isHidden;
-
-  Product({
-    required this.url,
-    required this.price,
-    this.isHidden = false,
-  });
-
-  Product copyWith({
-    String? url,
-    double? price,
-    bool? isHidden,
-  }) {
-    return Product(
-      url: url ?? this.url,
-      price: price ?? this.price,
-      isHidden: isHidden ?? this.isHidden,
-    );
-  }
-}
-
-// This model holds all the state related to the product screen — following single responsibility.
-class ProductState {
-  final List<Product> products;
-  final bool isPublished;
-
-  ProductState({
-    required this.products,
-    this.isPublished = false
-  });
-
-  ProductState copyWith({
-    List<Product>? products,
-    bool? isPublished
-  }) {
-    return ProductState(
-      products: products ?? this.products,
-      isPublished: isPublished ?? this.isPublished
-    );
-  }
-}
+import 'package:wishlist_wishperer/features/product/domain/model/product.dart';
+import 'package:wishlist_wishperer/features/product/domain/state/product_state.dart';
 
 class ProductViewModel extends StateNotifier<ProductState> {
   ProductViewModel() : super(ProductState(products: []));
