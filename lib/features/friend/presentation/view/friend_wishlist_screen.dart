@@ -21,9 +21,9 @@ class FriendWishlistScreen extends ConsumerWidget {
       appBar: AppBar(
         title: Text("$friendName's Wishlist"),
       ),
-      body: friendProducts.isEmpty
+      body: friendProducts.products.isEmpty
           ? _buildEmptyState(context, friendName)
-          : _buildProductList(friendProducts),
+          : _buildProductList(friendProducts.products),
     );
   }
 

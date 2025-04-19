@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:wishlist_wishperer/features/auth/domain/state/login_state.dart';
 
 final loginViewModelProvider = StateNotifierProvider<LoginViewModel, LoginState>(
   (ref) => LoginViewModel(),
@@ -21,29 +22,5 @@ class LoginViewModel extends StateNotifier<LoginState> {
 
   void login() {
     print('Logging in with ${state.email} / ${state.password}');
-  }
-}
-
-class LoginState {
-  final String email;
-  final String password;
-  final bool rememberMe;
-
-  LoginState({
-    this.email = '',
-    this.password = '',
-    this.rememberMe = false,
-  });
-
-  LoginState copyWith({
-    String? email,
-    String? password,
-    bool? rememberMe,
-  }) {
-    return LoginState(
-      email: email ?? this.email,
-      password: password ?? this.password,
-      rememberMe: rememberMe ?? this.rememberMe,
-    );
   }
 }

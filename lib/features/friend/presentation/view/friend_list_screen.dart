@@ -30,7 +30,7 @@ class FriendListScreen extends ConsumerWidget {
                   MaterialPageRoute(
                     builder: (_) => FriendWishlistScreen(
                       friendId: friend.id,
-                      friendName: friend.name!,
+                      friendName: friend.name,
                     ),
                   ),
                 );
