@@ -23,7 +23,7 @@ class FriendWishlistScreen extends ConsumerWidget {
       ),
       body: friendProducts.products.isEmpty
           ? _buildEmptyState(context, friendName)
-          : _buildProductList(friendProducts.products),
+          : _buildProductList(friendProducts.products, ref),
     );
   }
 
@@ -55,16 +55,71 @@ class FriendWishlistScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildProductList(List<Product> products) {
+  Widget _buildProductList(List<Product> products, WidgetRef ref) {
     return ListView.builder(
       padding: const EdgeInsets.all(16),
       itemCount: products.length,
       itemBuilder: (context, index) {
         final product = products[index];
+
         return Card(
-          child: ListTile(
-            title: Text(product.url),
-            subtitle: Text('€${product.price.toStringAsFixed(2)}'),
+          elevation: 2,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          child: Column(
+            children: [
+              ListTile(
+                title: Text(
+                  product.url,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('${product.participantCount} Participant(s)'),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Price: €${product.price.toStringAsFixed(0)}',
+                      style: const TextStyle(fontSize: 12),
+                    ),
+                    Text(
+                      product.contributionStatus,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: product.isFullyPaid ? Colors.green : Colors.red,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const Divider(height: 0),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text('See Details'),
+                    TextButton(
+                      onPressed: product.isFullyPaid || product.participantIds.contains('me')
+                          ? null
+                          : () {
+                              // TODO: Show participation form
+                              ref.read(friendWishlistProvider(friendId).notifier).participateInProduct(index, 'me', 50);
+                            },
+                      child: const Text('Participate'),
+                    ),
+                    if (product.participantIds.contains('me'))
+                      const Padding(
+                        padding: EdgeInsets.only(top: 4.0),
+                        child: Text(
+                          'You’re already participating',
+                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 12),
+            ],
           ),
         );
       },

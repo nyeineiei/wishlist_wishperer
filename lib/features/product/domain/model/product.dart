@@ -29,3 +29,17 @@ class Product {
     );
   }
 }
+
+// Enabled if contributedAmount < price
+// Disabled if already fully paid (contributedAmount >= price)
+// this is business logic tied to data. So, add as a computed property:
+extension ProductExtensions on Product {
+  bool get isFullyPaid => contributedAmount >= price;
+
+  String get contributionStatus {
+    final missing = price - contributedAmount;
+    return isFullyPaid ? 'Paid' : 'missing €${missing.toStringAsFixed(0)}';
+  }
+
+  int get participantCount => participantIds.length;
+}

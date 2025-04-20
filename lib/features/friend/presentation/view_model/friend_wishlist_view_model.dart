@@ -46,6 +46,10 @@ class FriendWishlistViewModel extends StateNotifier<FriendWishlistState> {
 
   void participateInProduct(int index, String userId, double amount) {
     final product = state.products[index];
+
+    // prevent double participation
+    if (product.participantIds.contains(userId) || product.isFullyPaid) return;
+    
     final updated = product.copyWith(
       contributedAmount: product.contributedAmount + amount,
       participantIds: [...product.participantIds, userId],
